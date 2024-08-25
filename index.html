@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iPhone Model Detector</title>
+</head>
+<body>
+    <h1>iPhone Model Detector</h1>
+    <p id="result">Detecting...</p>
+    <h2>Details:</h2>
+    <pre id="details"></pre>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const clientInfo = {
+                screenWidth: window.screen.width,
+                screenHeight: window.screen.height,
+                devicePixelRatio: window.devicePixelRatio,
+                userAgent: navigator.userAgent,
+                platform: navigator.platform,
+                memory: navigator.deviceMemory,
+                safeAreaInsets: {
+                    top: window.safeAreaInsets ? window.safeAreaInsets.top : null,
+                    bottom: window.safeAreaInsets ? window.safeAreaInsets.bottom : null,
+                },
+                isProMotion: window.matchMedia('(min-resolution: 120dpi)').matches,
+                dynamicIsland: false, // Set manually or detect dynamically if needed
+            };
+
+            fetch('/detect', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(clientInfo)
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('result').textContent = `Detected Model: ${data.model}`;
+                document.getElementById('details').textContent = JSON.stringify(data.clientInfo, null, 2);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                document.getElementById('result').textContent = 'Error detecting iPhone model';
+            });
+        });
+    </script>
+</body>
+</html>
