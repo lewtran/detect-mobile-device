@@ -3,29 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>iPhone Model Detector</title>
+    <title>Device Model Detector</title>
 </head>
 <body>
-    <h1>iPhone Model Detector</h1>
+    <h1>Device Model Detector</h1>
     <p id="result">Detecting...</p>
     <h2>Details:</h2>
     <pre id="details"></pre>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            const screenWidth = window.screen.width;
+            const screenHeight = window.screen.height;
+            const devicePixelRatio = window.devicePixelRatio;
+
             const clientInfo = {
-                screenWidth: window.screen.width,
-                screenHeight: window.screen.height,
-                devicePixelRatio: window.devicePixelRatio,
+                screenWidth: screenWidth,
+                screenHeight: screenHeight,
+                devicePixelRatio: devicePixelRatio,
                 userAgent: navigator.userAgent,
-                platform: navigator.platform,
-                memory: navigator.deviceMemory,
-                safeAreaInsets: {
-                    top: window.safeAreaInsets ? window.safeAreaInsets.top : null,
-                    bottom: window.safeAreaInsets ? window.safeAreaInsets.bottom : null,
-                },
+                platform: /iPad|iPhone/.test(navigator.platform) ? 'iOS' : 'Unknown',
+                osVersion: navigator.userAgent.match(/OS (\d+_\d+)/i) ? navigator.userAgent.match(/OS (\d+_\d+)/i)[1].replace('_', '.') : 'Unknown',
                 isProMotion: window.matchMedia('(min-resolution: 120dpi)').matches,
-                dynamicIsland: false, // Set manually or detect dynamically if needed
+                dynamicIsland: false,
             };
 
             fetch('/detect', {
@@ -37,12 +37,12 @@
             })
             .then(response => response.json())
             .then(data => {
-                document.getElementById('result').textContent = `Detected Model: ${data.model}`;
-                document.getElementById('details').textContent = JSON.stringify(data.clientInfo, null, 2);
+                document.getElementById('result').textContent = `Detected Model: ${data.detectedModel}`;
+                document.getElementById('details').textContent = JSON.stringify(data, null, 2);
             })
             .catch((error) => {
                 console.error('Error:', error);
-                document.getElementById('result').textContent = 'Error detecting iPhone model';
+                document.getElementById('result').textContent = 'Error detecting device model';
             });
         });
     </script>
