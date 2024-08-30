@@ -21,6 +21,8 @@
                 screenWidth: screenWidth,
                 screenHeight: screenHeight,
                 devicePixelRatio: devicePixelRatio,
+                viewportWidth: window.innerWidth,
+                viewportHeight: window.innerHeight,
                 userAgent: navigator.userAgent,
                 platform: /iPad|iPhone/.test(navigator.platform) ? 'iOS' : 'Unknown',
                 osVersion: navigator.userAgent.match(/OS (\d+_\d+)/i) ? navigator.userAgent.match(/OS (\d+_\d+)/i)[1].replace('_', '.') : 'Unknown',
