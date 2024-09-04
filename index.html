@@ -13,10 +13,6 @@
     <pre id="details"></pre>
 
     <script>
-        // Initialize the Telegram Web App API
-        const tg = window.Telegram.WebApp;
-        tg.expand();
-        
         // Get device specs
         document.addEventListener('DOMContentLoaded', function() {
             const screenWidth = window.screen.width;
@@ -53,6 +49,11 @@
                 document.getElementById('result').textContent = 'Error detecting device model';
             });
         });
+
+        // Initialize the Telegram Web App API
+        const tg = window.Telegram.WebApp;
+        tg.expand();
+        window.Telegram.WebApp.ready();
     </script>
 </body>
 </html>
