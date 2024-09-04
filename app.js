@@ -3,8 +3,11 @@ const https = require('https');
 const fs = require('fs');
 const path = require('path');
 const uach = require('ua-client-hints-js');
+var cors = require('cors')
 
 const app = express();
+app.use(cors())
+
 const port = 3000;
 
 const key = fs.readFileSync(path.join(__dirname, 'key.pem'));
