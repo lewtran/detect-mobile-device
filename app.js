@@ -37,7 +37,7 @@ bot.onText(/\/start/, (msg) => {
                     {
                         text: 'Open Web App',
                         web_app: { 
-                            url: 'https://192.168.1.158:3000' 
+                            url: 'https://detect-mobile.u2w.app' 
                         }
                     }
                 ]
