@@ -2,9 +2,12 @@ const express = require('express');
 const https = require('https');
 const fs = require('fs');
 const path = require('path');
+const cors = require('cors')
 const uach = require('ua-client-hints-js');
-var cors = require('cors')
+const dotenv = require('dotenv');
+const TelegramBot = require('node-telegram-bot-api');
 
+require('dotenv').config();
 const app = express();
 app.use(cors())
 
@@ -20,6 +23,27 @@ app.use((req, res, next) => {
         'Critical-CH': 'Sec-CH-UA-Model',
     });
     next();
+});
+
+const tgAPIKey = process.env.TGAPIKEY;
+const bot = new TelegramBot(tgAPIKey, {polling: true}); 
+bot.onText(/\/start/, (msg) => {
+    const chatId = msg.chat.id;
+    // Send message with inline keyboard
+    bot.sendMessage(chatId, 'Open the Web App:', {
+        reply_markup: {
+            inline_keyboard: [
+                [
+                    {
+                        text: 'Open Web App',
+                        web_app: { 
+                            url: 'https://192.168.1.158:3000' 
+                        }
+                    }
+                ]
+            ]
+        }
+    });
 });
 
 app.get('/', (req, res) => {
