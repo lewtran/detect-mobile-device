@@ -13,7 +13,7 @@
     <pre id="details"></pre>
 
     <script>
-        // Get device specs
+        // Get device specs and data
         document.addEventListener('DOMContentLoaded', function() {
             const clientInfo = {
                 screenWidth: window.screen.width,
@@ -22,6 +22,7 @@
                 viewportWidth: window.innerWidth,
                 viewportHeight: window.innerHeight,
                 userAgent: navigator.userAgent,
+                userAgentData: navigator.userAgentData,
                 platform: /iPad|iPhone/.test(navigator.platform) ? 'iOS' : 'Unknown',
                 osVersion: navigator.userAgent.match(/OS (\d+_\d+)/i) ? navigator.userAgent.match(/OS (\d+_\d+)/i)[1].replace('_', '.') : 'Unknown',
                 isProMotion: window.matchMedia('(min-resolution: 120dpi)').matches,
@@ -50,12 +51,6 @@
         const tg = window.Telegram.WebApp;
         tg.expand();
         window.Telegram.WebApp.ready();
-
-        if ('userAgentData' in navigator) {
-            console.log(navigator.userAgentData);
-        } else {
-            console.log('Client Hints are not supported.');
-        }
     </script>
 </body>
 </html>
