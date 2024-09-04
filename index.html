@@ -15,14 +15,10 @@
     <script>
         // Get device specs
         document.addEventListener('DOMContentLoaded', function() {
-            const screenWidth = window.screen.width;
-            const screenHeight = window.screen.height;
-            const devicePixelRatio = window.devicePixelRatio;
-
             const clientInfo = {
-                screenWidth: screenWidth,
-                screenHeight: screenHeight,
-                devicePixelRatio: devicePixelRatio,
+                screenWidth: window.screen.width,
+                screenHeight: window.screen.height,
+                devicePixelRatio: window.devicePixelRatio,
                 viewportWidth: window.innerWidth,
                 viewportHeight: window.innerHeight,
                 userAgent: navigator.userAgent,
@@ -54,6 +50,12 @@
         const tg = window.Telegram.WebApp;
         tg.expand();
         window.Telegram.WebApp.ready();
+
+        if ('userAgentData' in navigator) {
+            console.log(navigator.userAgentData);
+        } else {
+            console.log('Client Hints are not supported.');
+        }
     </script>
 </body>
 </html>
