@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Device Model Detector</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
     <h1>Device Model Detector</h1>
@@ -12,6 +13,11 @@
     <pre id="details"></pre>
 
     <script>
+        // Initialize the Telegram Web App API
+        const tg = window.Telegram.WebApp;
+        tg.expand();
+        
+        // Get device specs
         document.addEventListener('DOMContentLoaded', function() {
             const screenWidth = window.screen.width;
             const screenHeight = window.screen.height;
